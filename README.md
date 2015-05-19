@@ -1,2 +1,2 @@
-# bingo-search
-Web server do Bing web search, written in golang
+# WebSearch Server
+Server that use the power of bing web search
