@@ -3,13 +3,14 @@ Server that use the power of bing web search
 
 # How to use
 First build it:
-`` go build websearch.go ```
+
+``` go build websearch.go ```
+
 The web server is listening to environment variable PORT, example:
 
 ```
 PORT=3030 ./websearch
 ```
-
 
 ## Parameters
 - q
@@ -21,19 +22,29 @@ PORT=3030 ./websearch
 
 ## Example
 Output is JSON
-``` http://localhost:3030/?keyword=calculus+theory&count=20 ```
+``` 
+http://localhost:3030/?keyword=calculus+theory&count=20 
+```
 will output the 20 search results (if any)
  
-``` http://localhost:3030/?keyword=calculus&count=20&header=true ```
+```
+http://localhost:3030/?keyword=calculus&count=20&header=true
+```
 will output 20 search results and each result has header field
 
-``` http://localhost:3030/?keyword=calculus&count=20&tor=true ```
+```
+http://localhost:3030/?keyword=calculus&count=20&tor=true
+```
 will output 20 search results, but use tor connection when searching
 
-```  http://localhost:3030/?keyword=best+sort+algorithm&advancedQuery=filetype:pdf&count=20 ```
+```
+http://localhost:3030/?keyword=best+sort+algorithm&advancedQuery=filetype:pdf&count=20
+```
 will output 20 search results, with filetype pdf
  
-``` http://localhost:3030/?q=best+sort+algorithm+filetype:pdf&count=20 ```
+```
+http://localhost:3030/?q=best+sort+algorithm+filetype:pdf&count=20
+```
 Use q is alias for keyword + advancedQuery. But, you will get ugly logs
 
 # TODO
