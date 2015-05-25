@@ -1,0 +1,23 @@
+{
+	"ImportPath": "github.com/raitucarp/websearch-server",
+	"GoVersion": "go1.4.2",
+	"Deps": [
+		{
+			"ImportPath": "github.com/fatih/color",
+			"Comment": "v0.1",
+			"Rev": "1b35f289c47d5c73c398cea8e006b7bcb6234a96"
+		},
+		{
+			"ImportPath": "github.com/raitucarp/bing-search",
+			"Rev": "f749addce8a7753a357ac41a1b74c993274124ff"
+		},
+		{
+			"ImportPath": "github.com/shiena/ansicolor",
+			"Rev": "8368d3b31cf6f2c2464c7a91675342c9a0ac6658"
+		},
+		{
+			"ImportPath": "h12.me/socks",
+			"Rev": "c19db44edd3ca0f7992809b55412dbb57805bc8e"
+		}
+	]
+}
