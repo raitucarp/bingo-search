@@ -3,10 +3,10 @@ package main
 import (
 	"encoding/json"
 	"github.com/raitucarp/bing-search"
+	"github.com/raitucarp/websearch-server/log"
 	"net/http"
 	"os"
 	"strconv"
-	"github.com/raitucarp/websearch-server/log"
 	"time"
 )
 
@@ -28,33 +28,32 @@ type Err struct {
 	Message string `json:"message"`
 }
 
-
 // Main Handler
 func MainHandler(res http.ResponseWriter, req *http.Request) {
 	params := req.URL.Query()
-    q := params.Get("q")
-    keyword := params.Get("keyword")
-    advancedQuery := params.Get("advancedQuery")
-    countQuery := params.Get("count")
-    torQuery := params.Get("tor")
+	q := params.Get("q")
+	keyword := params.Get("keyword")
+	advancedQuery := params.Get("advancedQuery")
+	countQuery := params.Get("count")
+	torQuery := params.Get("tor")
 	startTime := time.Now()
 
 	// either keyword or q
 	if keyword != "" || q != "" {
-        var (
-            count int
-            tor bool
-        )
+		var (
+			count int
+			tor   bool
+		)
 		if countQuery == "" {
-            countQuery = "10"
+			countQuery = "10"
 		}
 
-        count, _ = strconv.Atoi(countQuery)
-        tor, _ = strconv.ParseBool(torQuery)
+		count, _ = strconv.Atoi(countQuery)
+		tor, _ = strconv.ParseBool(torQuery)
 
-        if keyword != "" {
-            q = keyword + " " + advancedQuery
-        }
+		if keyword != "" {
+			q = keyword + " " + advancedQuery
+		}
 
 		options := search.Options{
 			Query: q,
@@ -64,9 +63,9 @@ func MainHandler(res http.ResponseWriter, req *http.Request) {
 
 		result, _ := search.WebSearch(options)
 
-        if params.Get("header") == "true" {
-            result.GetHeaders()
-        }
+		if params.Get("header") == "true" {
+			result.GetHeaders()
+		}
 
 		output := Output{
 			Success: true,
@@ -74,10 +73,10 @@ func MainHandler(res http.ResponseWriter, req *http.Request) {
 			Count:   len(result),
 		}
 
-        if len(result) < 1 {
-            output.Success = false
-            output.Items = []search.Item{}
-        }
+		if len(result) < 1 {
+			output.Success = false
+			output.Items = []search.Item{}
+		}
 
 		data, err := json.Marshal(output)
 		if err != nil {
@@ -115,18 +114,18 @@ func MainHandler(res http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-    // listening to PORT in environment
+	// listening to PORT in environment
 	port := os.Getenv("PORT")
 
-    // add / pattern
+	// add / pattern
 	http.HandleFunc("/", MainHandler)
-    http.NotFoundHandler()
+	http.NotFoundHandler()
 
 	// listen to port
 	log.Standard("WebSearch Listening on port: " + port)
-    err := http.ListenAndServe(":"+port,  nil)
+	err := http.ListenAndServe(":"+port, nil)
 	// if error
 	if err != nil {
-		log.Danger("Fatal", "ListenAndServe: " + err.Error(), time.Now())
+		log.Danger("Fatal", "ListenAndServe: "+err.Error(), time.Now())
 	}
 }

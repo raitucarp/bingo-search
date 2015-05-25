@@ -1,9 +1,10 @@
 package log
+
 import (
-    "time"
-    "fmt"
-    "github.com/fatih/color"
-    "net/http"
+	"fmt"
+	"github.com/fatih/color"
+	"net/http"
+	"time"
 )
 
 var green = color.New(color.FgGreen).Add(color.Bold).SprintFunc()
@@ -12,29 +13,28 @@ var red = color.New(color.FgRed).Add(color.Bold).SprintFunc()
 var yellow = color.New(color.FgYellow).Add(color.Bold).SprintFunc()
 var italic = color.New().Add(color.Italic).SprintFunc()
 
-
 func Standard(message string) {
-    white(message+ "\n")
+	white(message + "\n")
 }
 
 func Success(method string, message string, startTime time.Time) {
-    // elapsed time
-    elapsed := time.Since(startTime)
+	// elapsed time
+	elapsed := time.Since(startTime)
 
-    // printf
-    fmt.Printf("[%s] %s %s - %s.\n", green(http.StatusOK), green(method), message, italic(elapsed.String()))
+	// printf
+	fmt.Printf("[%s] %s %s - %s.\n", green(http.StatusOK), green(method), message, italic(elapsed.String()))
 }
 
 func Warning(method string, message string, startTime time.Time) {
-    // elapsed time
-    elapsed := time.Since(startTime)
-    // printf
-    fmt.Printf("[%s] %s %s - %s.\n", yellow(http.StatusNotFound), yellow(method), message, italic(elapsed.String()))
+	// elapsed time
+	elapsed := time.Since(startTime)
+	// printf
+	fmt.Printf("[%s] %s %s - %s.\n", yellow(http.StatusNotFound), yellow(method), message, italic(elapsed.String()))
 }
 
 func Danger(method string, message string, startTime time.Time) {
-    // elapsed time
-    elapsed := time.Since(startTime)
-    // printf
-    fmt.Printf("[%s] %s %s - %s.\n", red(http.StatusInternalServerError), red(method), message, italic(elapsed.String()))
+	// elapsed time
+	elapsed := time.Since(startTime)
+	// printf
+	fmt.Printf("[%s] %s %s - %s.\n", red(http.StatusInternalServerError), red(method), message, italic(elapsed.String()))
 }
